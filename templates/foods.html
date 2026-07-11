@@ -30,12 +30,17 @@
     
     
         <td>
+            <a href="/add_to_today/{{ loop.index0 }}" class="btn btn-success btn-sm">
+                Add to Today
+            </a>
+
+            </a>
             <a href="/edit_food/{{ loop.index0 }}" class="btn btn-warning btn-sm">
                 Edit
             </a>
             <a href="/delete_food/{{ loop.index0 }}" class="btn btn-danger btn-sm">
                 Delete
-            </a>
+            
         </td>
     </tr>
     {% endfor %}

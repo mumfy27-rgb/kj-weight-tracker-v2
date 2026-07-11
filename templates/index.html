@@ -38,5 +38,28 @@
         </div>
     </div>
 
+        <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Protein</h5>
+                <p class="card-text fs-3">{{ protein }}g</p>
+            </div>
+        </div>
+    </div>
+
+
+    <h2 class="mt-5 mb-3">Today's Foods</h2>
+
+    <ul class="list-group">
+        {% for food in today_foods %}
+            
+            <li class="list-group-item">
+                {{ food.name }} - {{ food.kj }} KJ - {{ food.protein }}g protein
+            </li>
+        {% endfor %}
+   
+   
+    </ul>
+
 
 {% endblock %}

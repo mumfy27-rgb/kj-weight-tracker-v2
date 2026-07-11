@@ -30,18 +30,25 @@ foods = [
     
 ]
 
+today_foods = []
+
+
 @app.route("/foods")
 def food_database():
     return render_template("foods.html", foods=foods)
 
 @app.route("/")
 def home():
+    total_kj = sum(food["kj"] for food in today_foods)
+    protein = sum(food["protein"] for food in today_foods)
     return render_template(
         "index.html",
-        total_kj=0,
-        protein=0,
+        total_kj=total_kj,
+        protein=protein,
         current_weight=158.2,
-        kj_goal=8500
+        kj_goal=8500,
+        today_foods=today_foods
+
     )
 
 
@@ -63,7 +70,7 @@ def add_food():
         }
         
         foods.append(new_food)
-
+  
 
         return redirect(url_for("food_database"))
 
@@ -100,6 +107,15 @@ def delete_food(food_index):
     if 0 <= food_index < len(foods):
         foods.pop(food_index)
     return redirect(url_for("food_database"))
+
+@app.route("/add_to_today/<int:food_index>")
+def add_to_today(food_index):
+
+    if 0 <= food_index < len(foods):
+        today_foods.append(foods[food_index])
+
+    return redirect(url_for("food_database"))
+
     
 
 if __name__ == '__main__':
