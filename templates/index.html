@@ -53,9 +53,15 @@
     <ul class="list-group">
         {% for food in today_foods %}
             
-            <li class="list-group-item">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ food.name }} - {{ food.kj }} KJ - {{ food.protein }}g protein
+            
+                <a href="/remove_from_today/{{ loop.index0 }}" class="btn btn-danger btn-sm">
+                    Remove
+                </a>
+
             </li>
+            
         {% endfor %}
    
    

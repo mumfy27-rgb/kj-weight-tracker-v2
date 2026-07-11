@@ -116,6 +116,15 @@ def add_to_today(food_index):
 
     return redirect(url_for("food_database"))
 
+
+
+@app.route("/remove_from_today/<int:food_index>")
+def remove_from_today(food_index):
+
+    if 0 <= food_index < len(today_foods):
+        today_foods.pop(food_index)
+    return redirect(url_for("home"))
+
     
 
 if __name__ == '__main__':
