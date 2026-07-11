@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<h1 class="mb-4">Food Database</h1>
+
+<table class="table table-hover">
+    <tr>
+        <th>favourite</th>
+        <th>Food</th>
+        <th>KJ</th>
+        <th>Protein</th>
+        <th>Actions</th>
+        
+    </tr>
+    
+    {% for food in foods %}
+  
+    <tr>
+        <td>
+        {% if food.favourite %}
+            ⭐
+        {% endif %}
+        </td>
+        
+        <td>{{ food.name }}</td>
+        <td>{{ food.kj }}</td>
+        <td>{{ food.protein }}</td>
+    
+    
+        <td>
+            <a href="/edit_food/{{ loop.index0 }}" class="btn btn-warning btn-sm">
+                Edit
+            </a>
+            <a href="/delete_food/{{ loop.index0 }}" class="btn btn-danger btn-sm">
+                Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+/* ==========================
+   General Page
+========================== */
+
+body {
+    background-color: #202124;
+    color: #e8eaed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ==========================
+   Navbar
+========================== */
+
+.navbar {
+    background-color: #2b2d31 !important;
+    border-bottom: 1px solid #3c4043;
+}
+
+/* ==========================
+   Cards
+========================== */
+
+.card {
+    background-color: #2b2d31;
+    border: 1px solid #3c4043;
+    color: #e8eaed;
+    border-radius: 10px;
+}
+
+.card-title {
+    color: #9aa0a6;
+    font-size: 0.95rem;
+}
+
+.card-text {
+    font-weight: bold;
+}
+
+/* ==========================
+   Tables
+========================== */
+.table {
+    color: #e8eaed !important;
+}
+
+.table th {
+    background-color: #303134 !important;
+    color: #ffffff !important;
+}
+
+.table td {
+    background-color: #2b2d31 !important;
+    color: #ffffff !important;
+}
+
+.table tbody tr:hover td {
+    background-color: #3c4043 !important;
+    color: #ffffff !important;
+}
+/* ==========================
+   Forms
+========================== */
+
+.form-control {
+    background-color: #303134;
+    border: 1px solid #5f6368;
+    color: #ffffff;
+}
+
+.form-control:focus {
+    background-color: #303134;
+    color: white;
+    border-color: #4c8bf5;
+    box-shadow: 0 0 0 .2rem rgba(76,139,245,.25);
+}
+
+.form-check-label {
+    color: #e8eaed;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.btn {
+    border-radius: 8px;
+}

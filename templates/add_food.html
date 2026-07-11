@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<form action="{% if editing %}/edit_food/{{ food_index }}{% else %}/add_food{% endif %}" method="POST">
+    <div class="mb-3" >
+        <label class="form-label"> Food Name</label>
+        <input 
+        type="text"
+        name="food_name"
+        class="form-control"
+        value="{{ food.name if editing else ''}}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">KJ</label>
+        <input 
+        type="number"
+        name="kj"
+        class="form-control"
+        value="{{ food.kj if editing else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Protein</label>
+        <input 
+        type="number"
+        name="protein"
+        class="form-control"
+        value="{{ food.protein if editing else ''}}">
+    </div>
+
+    <div class="form-check mb-3">
+        <input 
+        type="checkbox"
+        name="favuorite"
+        class="form-check-input"
+        {% if editing and food.favourite %} checked{% endif %}>
+        <label class="form-check-label"> Save as Favourite</label>
+    </div>
+
+    <button 
+    type="submit"class="btn btn-success">
+        {% if editing %}
+            Save Changes
+        {% else %}
+            Save Food
+        {% endif %}
+</button>
+
+</form>
+
+{% endblock %}

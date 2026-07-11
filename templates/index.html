@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row">
+
+
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"> Today's Kj</h5>
+                <p class="card-text fs-3">{{ total_kj }}</p>
+                <button href="add_food.html" class="btn-success"> Add Food</button>
+
+            </div>
+       </div>
+    </div>
+
+</div>
+
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Current Weight</h5>
+                <p class="card-text fs-3">{{ current_weight }}kg</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"> KJ Goal</h5>
+                <p class="card-text fs-3">{{ kj_goal }}</p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
