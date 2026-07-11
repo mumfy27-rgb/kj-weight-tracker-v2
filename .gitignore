@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .vscode/
+weights.json
+foods.json
+todays_food.json
