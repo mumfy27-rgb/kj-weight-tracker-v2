@@ -18,7 +18,7 @@
 
             </div>
        </div>
-    </div>
+    
 
 </div>
 
@@ -49,6 +49,7 @@
         </div>
     </div>
 
+</div>
 
     <h2 class="mt-5 mb-3">Today's Foods</h2>
 
@@ -69,5 +70,24 @@
    
     </ul>
 
+    <h2 class="mt-5 mb-3">Weight History</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Weight</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for entry in weights %}
+            <tr>
+                <td>{{ entry.date }}</td>
+                <td>{{ entry.weight }}kg</td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
 
 {% endblock %}

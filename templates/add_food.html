@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+<h1 class="mb-4"> Add Food</h1>
 <form action="{% if editing %}/edit_food/{{ food_index }}{% else %}/add_food{% endif %}" method="POST">
     <div class="mb-3" >
         <label class="form-label"> Food Name</label>

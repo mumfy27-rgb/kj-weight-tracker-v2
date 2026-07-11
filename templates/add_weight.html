@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1 class="mb-4"> Add Weight</h1>
+
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <input type="date" name="date" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Weight (Kg)</label>
+        <input type="number" name="weight" class="form-control" step="0.1" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Save Weight
+    </button>
+
+    <a href="{{ url_for('home') }}" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

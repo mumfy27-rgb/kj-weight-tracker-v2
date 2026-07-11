@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
+weights = []
+
 foods = [
     {
         "name": "Overnight Oats",
@@ -41,13 +43,15 @@ def food_database():
 def home():
     total_kj = sum(food["kj"] for food in today_foods)
     protein = sum(food["protein"] for food in today_foods)
+    current_weight = weights[-1]["weight"] if weights else 0
     return render_template(
         "index.html",
         total_kj=total_kj,
         protein=protein,
-        current_weight=158.2,
+        current_weight=current_weight,
         kj_goal=8500,
-        today_foods=today_foods
+        today_foods=today_foods,
+        weights=weights
 
     )
 
@@ -125,6 +129,26 @@ def remove_from_today(food_index):
         today_foods.pop(food_index)
     return redirect(url_for("home"))
 
+
+
+@app.route("/add_weight", methods=["GET", "POST"])
+def add_weight():
+
+
+    if request.method == "POST":
+
+
+        weight = float(request.form["weight"])
+        date = request.form["date"]
+
+        weights.append({
+                "date":date,
+                "weight": weight
+        })
+
+        return redirect(url_for("home"))
+    
+    return render_template("add_weight.html")
     
 
 if __name__ == '__main__':
