@@ -12,7 +12,9 @@
             <div class="card-body">
                 <h5 class="card-title"> Today's Kj</h5>
                 <p class="card-text fs-3">{{ total_kj }}</p>
-                <button href="add_food.html" class="btn-success"> Add Food</button>
+                <a href="{{ url_for('add_food') }}" class="btn btn-success">
+                    Add Food
+                </a>
 
             </div>
        </div>
