@@ -4,4 +4,4 @@ __pycache__/
 .vscode/
 weights.json
 foods.json
-todays_food.json
+today_food.json
