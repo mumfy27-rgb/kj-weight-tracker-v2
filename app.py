@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime
 import json
 
 app = Flask(__name__)
@@ -30,6 +30,22 @@ foods = load_data("foods.json")
 today_foods = load_data("food_log.json")
 
 
+# Clean old display-only fields from the saved food log
+food_log_cleaned = False
+
+for food in today_foods:
+    if "display_date" in food:
+        food.pop("display_date")
+        food_log_cleaned = True
+
+    if "date" not in food:
+        food["date"] = date.today().isoformat()
+        food_log_cleaned = True
+
+if food_log_cleaned:
+    save_data("food_log.json", today_foods)
+
+
 @app.route("/foods")
 def food_database():
     return render_template("foods.html", foods=foods)
@@ -37,8 +53,33 @@ def food_database():
 
 @app.route("/")
 def home():
-    total_kj = sum(food["kj"] for food in today_foods)
-    protein = sum(food["protein"] for food in today_foods)
+    today = date.today().isoformat()
+
+    today_foods_with_indexes = [
+        (
+            index,
+            {
+                **food,
+                "display_date": datetime.strptime(
+                    food["date"],
+                    "%Y-%m-%d"
+                ).strftime("%d %b %Y")
+            }
+        )
+        for index, food in enumerate(today_foods)
+        if food.get("date") == today
+    ]
+
+    total_kj = sum(
+        food["kj"]
+        for index, food in today_foods_with_indexes
+    )
+
+    protein = sum(
+        food["protein"]
+        for index, food in today_foods_with_indexes
+    )
+
     current_weight = weights[-1]["weight"] if weights else 0
     kj_remaining = 8500 - total_kj
 
@@ -49,7 +90,7 @@ def home():
         current_weight=current_weight,
         kj_goal=8500,
         kj_remaining=kj_remaining,
-        today_foods=today_foods,
+        today_foods=today_foods_with_indexes,
         weights=weights
     )
 
@@ -122,8 +163,17 @@ def delete_food(food_index):
 def add_to_today(food_index):
 
     if 0 <= food_index < len(foods):
-        today_foods.append(foods[food_index])
-        save_data("food_log.json", today_foods)          
+        food = foods[food_index]
+
+        today_foods.append({
+            "date": date.today().isoformat(),
+            "name": food["name"],
+            "kj": food["kj"],
+            "protein": food["protein"]
+        })
+
+        save_data("food_log.json", today_foods)
+
     return redirect(url_for("food_database"))
 
 
@@ -142,10 +192,10 @@ def add_weight():
 
     if request.method == "POST":
         weight = float(request.form["weight"])
-        date = request.form["date"]
+        weight_date = request.form["date"]
 
         weights.append({
-            "date": date,
+            "date": weight_date,
             "weight": weight
         })
 

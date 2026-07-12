@@ -3,12 +3,35 @@
         "name": "Large McCaf\u00e9 Flat White with skim milk",
         "kj": 1346,
         "protein": 25,
-        "favourite": false
+        "favourite": false,
+        "date": "2026-07-12"
     },
     {
         "name": "Muscle Nation x Choclt Caramel Cheesecake Protein Bar",
         "kj": 775,
         "protein": 12,
-        "favourite": false
+        "favourite": false,
+        "date": "2026-07-12"
+    },
+    {
+        "name": "Protein Water (Muscle Nation)",
+        "kj": 330,
+        "protein": 20,
+        "favourite": false,
+        "date": "2026-07-12"
+    },
+    {
+        "name": "Jack Links",
+        "kj": 315,
+        "protein": 15,
+        "favourite": false,
+        "date": "2026-07-12"
+    },
+    {
+        "name": "Optislim Banana Shake",
+        "kj": 965,
+        "protein": 24,
+        "favourite": false,
+        "date": "2026-07-12"
     }
 ]

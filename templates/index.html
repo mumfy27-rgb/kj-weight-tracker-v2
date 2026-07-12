@@ -54,12 +54,13 @@
     <h2 class="mt-5 mb-3">Today's Foods</h2>
 
     <ul class="list-group">
-        {% for food in today_foods %}
+        {% for food_index, food in today_foods %}
             
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ food.name }} - {{ food.kj }} KJ - {{ food.protein }}g protein
+                <small class="text-muted">({{ food.display_date }})</small>
             
-                <a href="/remove_from_today/{{ loop.index0 }}" class="btn btn-danger btn-sm">
+                <a href="{{ url_for('remove_from_today', food_index=food_index) }}" class="btn btn-danger btn-sm">
                     Remove
                 </a>
 
