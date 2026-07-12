@@ -61,7 +61,8 @@ if food_log_cleaned:
 
 @app.route("/foods")
 def food_database():
-    return render_template("foods.html", foods=foods)
+    database_foods = Food.query.all()
+    return render_template("foods.html", foods=database_foods)
 
 
 @app.route("/")
@@ -221,6 +222,20 @@ def add_weight():
 
 with app.app_context():
     db.create_all()
+
+    if Food.query.count() == 0:
+        for food in foods:
+            new_food = Food(
+                name=food["name"],
+                kj=food["kj"],
+                protein=food["protein"],
+                favourite=food["favourite"]
+            )
+
+            db.session.add(new_food)
+
+        db.session.commit()
+        print("Foods migrated to SQLite.")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=5000)
