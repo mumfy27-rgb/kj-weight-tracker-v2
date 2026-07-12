@@ -118,16 +118,15 @@ def add_food():
         protein = int(request.form["protein"])
         favourite = "favourite" in request.form
 
-        new_food = {
-            "name": food_name,
-            "kj": kj,
-            "protein": protein,
-            "favourite": favourite
-        }
+        new_food = Food(
+            name=food_name,
+            kj=kj,
+            protein=protein,
+            favourite=favourite
+        )
 
-        foods.append(new_food)
-        save_data("foods.json", foods)
-
+        db.session.add(new_food)
+        db.session.commit()
         return redirect(url_for("food_database"))
 
     return render_template(
@@ -140,18 +139,18 @@ def add_food():
 @app.route("/edit_food/<int:food_index>", methods=["GET", "POST"])
 def edit_food(food_index):
 
-    if not 0 <= food_index < len(foods):
+    food = db.session.get(Food, food_index)
+
+    if food is None:
         return redirect(url_for("food_database"))
 
-    food = foods[food_index]
-
     if request.method == "POST":
-        food["name"] = request.form["food_name"]
-        food["kj"] = int(request.form["kj"])
-        food["protein"] = int(request.form["protein"])
-        food["favourite"] = "favourite" in request.form
+        food.name = request.form["food_name"]
+        food.kj = int(request.form["kj"])
+        food.protein = int(request.form["protein"])
+        food.favourite = "favourite" in request.form
 
-        save_data("foods.json", foods)
+        db.session.commit()
 
         return redirect(url_for("food_database"))
 
@@ -159,9 +158,8 @@ def edit_food(food_index):
         "add_food.html",
         editing=True,
         food=food,
-        food_index=food_index
+        food_index=food.id
     )
-
 
 @app.route("/delete_food/<int:food_index>")
 def delete_food(food_index):
