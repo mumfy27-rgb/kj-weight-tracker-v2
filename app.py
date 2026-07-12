@@ -164,12 +164,13 @@ def edit_food(food_index):
 @app.route("/delete_food/<int:food_index>")
 def delete_food(food_index):
 
-    if 0 <= food_index < len(foods):
-        foods.pop(food_index)
-        save_data("foods.json", foods)
+    food = db.session.get(Food, food_index)
+
+    if food is not None:
+        db.session.delete(food)
+        db.session.commit()
 
     return redirect(url_for("food_database"))
-
 
 @app.route("/add_to_today/<int:food_index>")
 def add_to_today(food_index):
