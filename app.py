@@ -2,8 +2,21 @@ from flask import Flask, render_template, request, redirect, url_for
 from pathlib import Path
 from datetime import date, datetime
 import json
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tracker.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+class Food(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), nullable=False)
+    kj = db.Column(db.Integer, nullable=False)
+    protein = db.Column(db.Integer, nullable=False)
+    favourite = db.Column(db.Boolean, default=False)
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -205,6 +218,9 @@ def add_weight():
 
     return render_template("add_weight.html")
 
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=5000)
