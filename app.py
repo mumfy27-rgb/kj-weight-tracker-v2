@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pathlib import Path
+from datetime import date
 import json
 
 app = Flask(__name__)
@@ -26,7 +27,7 @@ def save_data(filename, data):
 
 weights = load_data("weights.json")
 foods = load_data("foods.json")
-today_foods = load_data("today_foods.json")
+today_foods = load_data("food_log.json")
 
 
 @app.route("/foods")
@@ -39,6 +40,7 @@ def home():
     total_kj = sum(food["kj"] for food in today_foods)
     protein = sum(food["protein"] for food in today_foods)
     current_weight = weights[-1]["weight"] if weights else 0
+    kj_remaining = 8500 - total_kj
 
     return render_template(
         "index.html",
@@ -46,6 +48,7 @@ def home():
         protein=protein,
         current_weight=current_weight,
         kj_goal=8500,
+        kj_remaining=kj_remaining,
         today_foods=today_foods,
         weights=weights
     )
@@ -120,8 +123,7 @@ def add_to_today(food_index):
 
     if 0 <= food_index < len(foods):
         today_foods.append(foods[food_index])
-        save_data("today_foods.json", today_foods)
-
+        save_data("food_log.json", today_foods)          
     return redirect(url_for("food_database"))
 
 
@@ -130,7 +132,7 @@ def remove_from_today(food_index):
 
     if 0 <= food_index < len(today_foods):
         today_foods.pop(food_index)
-        save_data("today_foods.json", today_foods)
+        save_data("food_log.json", today_foods)
 
     return redirect(url_for("home"))
 
